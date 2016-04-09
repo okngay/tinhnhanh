@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Không sai? - VTC ACADEMY</title>
+          
+        <link rel="stylesheet" href="css/style.css">
+   
+        
+  </head>
+
+  <body>
+
+    <html>
+
+<head>
+
+  <!-- Khai báo thư viện  -->
+  <meta charset="UTF-8">
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <!--Import materialize.css-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+  <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+
+  <!-- Tối ưu cho di dộng  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+
+  <!-- Thanh tiêu đề -->
+  <nav>
+    <div class="nav-wrapper pink hoverable">
+      <a onclick="history.go(0);" class="brand-logo center ">Không Sai?</a>
+    </div>
+  </nav>
+
+  <!-- Nội dung -->
+
+
+
+
+
+ 
+
+
+  <!-- Hiển điểm số   -->
+  <div class="col s12 hidden" id="scoreShow">
+    <div class="card blue  white-text center hoverable animated bounceInRight">
+         <h1 class="center" id="id_total_score">0 Điểm</h1>
+    </div>
+  </div>
+
+
+  <!-- Hiển thị Kỷ lục cục bộ-->
+  <div class="card-content red-text ">
+    <div class="center">
+      <div class="col s12">
+        <h2 class="card yellow hoverable animated bounceInLeft " id="Hiscore"> </h2> </div>
+    </div>
+  </div>
+  <br>
+
+
+  <!-- Hiển thị câu hỏi  -->
+
+  <div class="card hoverable animated bounceInLeft hidden" id="showqestions">
+    <!-- Thanh thời gian  -->
+  <div class="progress large" id="bars">
+    <div class="determinate red" id="bar"> </div>
+  </div>
+    <div class="container">
+      <div class="row center">
+        <div class="col s4 ">
+          <h1 id="id_n1">0</h1></div>
+        <div class="col s4 red-text">
+          <h1 id="id_op"> </h1> </div>
+        <div class="col s4">
+          <h1 id="id_n2">0</h1></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Hiển thị nút Đúng / sai -->
+  <div class="card  hoverable animated bounceInRight hidden" id="truefalse">
+    <div class="card-content white-text ">
+      <div class="center">
+        <div class="row">
+          <div class="col s6" >
+            <h2 class="green card hoverable " id="itrue">Đúng</h2> </div>
+          <div class="col s6">
+            <h2 class="red card hoverable "  id="ifalse">Sai </h2></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+  
+  <div class="center green-text hidden" id="sentOk">
+    <h3>Đã gửi xong :) Kéo xuống để xem bảng xếp hạng nhé ! </h3>
+  </div>
+  
+  <div class="center green-text hidden" id="sentOk2">
+    <h3>9 điểm trở lên mới gửi điểm được nhé :) Cố lên ^^ </h3>
+  </div>
+
+  <div class="center green-text " id="sentOk3">
+    <h3>Đăng nhập Facebook để gửi điểm lên Bảng xếp hạng nhé !  </h3>
+  </div>
+  <div class="center green-text hidden " id="sentOk4">
+    <h3>Đăng nhập Facebook thành công ! </h3>
+  </div>
+  <!--Tên ẩn danh  -->
+  <div class="center green-text ">
+    <h3 class="center" id="yourname"> ...</h3>
+  </div>
+
+
+  <!--Hiển thị nút Gửi điểm  -->
+  <div class="card-content white-text animated bounceInLeft hoverable ">
+    <div class="center">
+      <div class="col s12">
+        <h2 class="card teal " id="sentScore">Gửi điểm</h2> </div>
+
+    </div>
+  </div>
+
+
+  <!-- Hiển thị nút Bắt đầu  -->
+  <div class="card-content white-text animated bounceInLeft">
+    <div class="center">
+      <div class="col s12">
+        <h2 class="card green " id="begin">Bắt đầu</h2> </div>
+
+    </div>
+  </div>
+
+  <!-- Hiển thị nút Facebook  -->
+  <div class="card-content white-text animated bounceInRight hoverable ">
+    <div class="center">
+      <div class="col s12">
+        <h2 class="card blue " id="facebook">Đăng nhập Facebook</h2> </div>
+
+    </div>
+  </div>
+  
+  <br>
+  <!--Hiển thị nút Chơi lại  -->
+  <div class="card-content black-text ">
+    <div class="center">
+      <div class="col s12">
+        <h2 class="card yellow hoverable animated bounceInLeft hidden" id="replay">Chơi lại</h2> </div>
+
+    </div>
+  </div>
+
+  <br>
+  <!--Hiển thị Bảng Xếp Hạng  -->
+  <div class="center blue-text">
+    <h3>Bảng Xếp Hạng</h3>
+  </div>
+
+  <div class="example-base example-leaderboard l-demo-container animated faceIn ">
+    <table id="leaderboardTable" class="highlight bordered">
+      <tr>
+        <th class = "red-text" >Tên</th>
+        <th class = "red-text">Điểm số</th>
+      </tr>
+    </table>
+
+
+  </div>
+
+
+  <br><br><br>
+
+
+  <!--Hiển thị thanh cuối trang  -->
+
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Bùi Khương Duy - GD11</h5>
+
+        </div>
+        <div class="col l4 offset-l2 s12">
+
+
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright blue">
+      <div class="container">
+        © 2016 VTC ACADEMY
+
+      </div>
+    </div>
+  </footer>
+
+
+</body>
+
+</html>
+    
+        <script src="js/index2.js"></script>
+
+    
+    
+    
+  </body>
+</html>
